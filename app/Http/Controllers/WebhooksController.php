@@ -9,27 +9,21 @@ class WebhooksController extends Controller
 {
     public function show(Request $request, $API_KEY){
     	if($API_KEY == Config::get('constants.webhooks_key')){
-    		$payload_push = json_decode(json_encode($request->input('push')));
+    		$refs = json_decode(json_encode($request->input('refs')));
     		$payload = json_decode(json_encode($request->input('repository')));
-    		if(!$payload_push || !$payload){
+    		if(!$refs || !$payload){
     			return 'no payload';
     		}
     		$repo_name = $payload->name;
     		$repo_full_name = $payload->full_name;
-    		$changes = $payload_push->changes;
-    		if(!$changes || !$repo_name || !$repo_full_name){
+    		if(!$repo_name || !$repo_full_name){
     			return 'malformed payload';
     		}
-    		$found = false;
-    		foreach($changes as $change){
-    			if($change->new->name == 'master'){
-    				$found = true;
-    				break;
-    			}
-    		}
-    		if(!$found){
-    			return 'branch not found';
-    		}
+
+			if($refs != 'refs/heads/master'){
+				return 'invalid branch';
+			}
+    		
     		$repository = Repository::where('name', $repo_name)->first();
     		if(!$repository){
     			return 'repo not recorded';

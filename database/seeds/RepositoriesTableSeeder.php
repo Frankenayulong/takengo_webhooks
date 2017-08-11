@@ -24,9 +24,9 @@ class RepositoriesTableSeeder extends Seeder
     	$repository->save();
 
         $repository = new Repository;
-    	$repository->name = 'takengo_frontend';
-    	$repository->full_name = 'frankenayulong/takengo_frontend';
-    	$repository->full_path = '/var/www/takengo.io';
+    	$repository->name = 'takengo_api';
+    	$repository->full_name = 'frankenayulong/takengo_api';
+    	$repository->full_path = '/var/www/api.takengo.io';
     	$repository->save();
     }
 }

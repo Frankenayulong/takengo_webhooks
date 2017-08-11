@@ -16,9 +16,9 @@ class CreateWebhooksLogsTable extends Migration
         Schema::create('webhooks_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('full_name');
-            $table->jsonb('payload');
-            $table->jsonb('command_output');
+            $table->string('full_name')->nullable();
+            $table->json('payload')->nullable();
+            $table->json('command_output')->nullable();
             $table->timestamps();
         });
     }
