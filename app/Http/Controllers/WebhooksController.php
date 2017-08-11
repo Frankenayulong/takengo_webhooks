@@ -9,7 +9,7 @@ class WebhooksController extends Controller
 {
     public function show(Request $request, $API_KEY){
     	if($API_KEY == Config::get('constants.webhooks_key')){
-    		$refs = json_decode(json_encode($request->input('refs')));
+    		$refs = json_decode(json_encode($request->input('ref')));
     		$payload = json_decode(json_encode($request->input('repository')));
     		if(!$refs || !$payload){
     			return 'no payload';
